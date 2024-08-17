@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"subnet_app","Source":"../terraform_modules/subnet","Dir":"../terraform_modules/subnet"},{"Key":"subnet_gke","Source":"../terraform_modules/subnet","Dir":"../terraform_modules/subnet"},{"Key":"vpc","Source":"../terraform_modules/vpc","Dir":"../terraform_modules/vpc"}]}
