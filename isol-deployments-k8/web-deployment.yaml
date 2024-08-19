@@ -4,6 +4,12 @@ metadata:
   name: web
   namespace: default
 spec:
+  replicas: 3  # Number of replicas for redundancy
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0  # Ensures that at least all pods are available during the update
+      maxSurge: 1        # Allows one extra pod to be created during the update
   selector:
     matchLabels:
       run: web
