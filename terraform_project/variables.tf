@@ -25,10 +25,10 @@ variable "sn_ip_range2" {
 
 variable "region" {
   type = string
-  default = "asia-south1"
+  default = "asia-south2"
 }
 
 variable "zone" {
   type = string
-  default =  "asia-south1-c" 
+  default =  "asia-south2-c" 
 }
