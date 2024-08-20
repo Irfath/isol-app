@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ labels:
+  name: prometheus
+ name: prometheus
+ namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-server
+  template:
+   metadata:
+    labels:
+      app: prometheus-server
+   spec:
+    serviceAccountName: prometheus
+    containers:
+    - name: prometheus
+      image: prom/prometheus:v2.30.3
+      imagePullPolicy: Always
+      args:
+        - --storage.tsdb.path=/data
+        - --storage.tsdb.retention.time=1d
+        - --web.enable-lifecycle
+        - --config.file=/etc/prometheus/prometheus.yaml
+      ports:
+        - containerPort: 9090
+          protocol: TCP
+      volumeMounts:
+        - mountPath: "/etc/prometheus"
+          name: config-prometheus
+        - mountPath: /data
+          name: storage-volume
+    securityContext:
+      fsGroup: 65534
+      runAsGroup: 65534
+      runAsNonRoot: false
+      runAsUser: 0
+    volumes:
+    - name: config-prometheus
+      configMap:
+       name: prometheus-config
+    - name: storage-volume
+      persistentVolumeClaim:
+        claimName: prometheus-pvc

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: grafana
+  template:
+    metadata:
+      labels:
+        k8s-app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        livenessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /api/health
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-storage
+        env:
+        - name: GF_SERVER_HTTP_PORT
+          value: "3000"
+        - name: GF_SMTP_ENABLED
+          value: "true"
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "admin321"
+        - name: GF_SMTP_HOST
+          value: "smtp.sendgrid.net:587"
+        - name: GF_SMTP_USER
+          value: "apikey"
+        - name: GF_SMTP_PASSWORD
+          value: "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"
+        - name: GF_SMTP_FROM_ADDRESS
+          value: "local_reg-grafana@travelboxsoftware.com"
+        - name: GF_SMTP_FROM_NAME
+          value: "LOCAL-REG-GRAFANA"
+        - name: GF_AUTH_LDAP_ENABLED
+          value: "true"
+        - name: GF_AUTH_LDAP_CONFIG_FILE
+          value: "/var/lib/grafana/ldap-conf/ldap.toml"
+        - name: GF_AUTH_LDAP_ALLOW_SIGN_UP
+          value: "true"
+        - name: GF_LOG_FILTERS
+          value: "ldap:debug"
+      securityContext:
+        fsGroup: 472
+        runAsUser: 0
+      volumes:
+      - name: grafana-storage
+        persistentVolumeClaim:
+          claimName: grafana-pvc
+
