@@ -44,9 +44,9 @@ spec:
         - name: GF_SMTP_USER
           value: "apikey"
         - name: GF_SMTP_PASSWORD
-          value: "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"
+          value: ""
         - name: GF_SMTP_FROM_ADDRESS
-          value: "local_reg-grafana@travelboxsoftware.com"
+          value: "local_reg-grafana@isol.com"
         - name: GF_SMTP_FROM_NAME
           value: "LOCAL-REG-GRAFANA"
         - name: GF_AUTH_LDAP_ENABLED
