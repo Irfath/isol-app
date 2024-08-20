@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  namespace: isol
+  labels:
+    app: mysql
+spec:
+  containers:
+  - name: mysql
+    image: mysql:latest
+    ports:
+    - containerPort: 3306
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: rootpassword
+    - name: MYSQL_DATABASE
+      value: mydatabase
+    - name: MYSQL_USER
+      value: myuser
+    - name: MYSQL_PASSWORD
+      value: mypassword

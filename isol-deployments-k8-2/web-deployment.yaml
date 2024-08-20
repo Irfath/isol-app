@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: isol-app
+  namespace: isol
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: isol-app
+  template:
+    metadata:
+      labels:
+        app: isol-app
+    spec:
+      containers:
+      - name: isol-app
+        image: asia-south2-docker.pkg.dev/isol-432616/my-flask-app/my-flask-app:10.1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db_user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db_password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db_name
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db_host
