@@ -44,7 +44,7 @@ spec:
         - name: GF_SMTP_USER
           value: "apikey"
         - name: GF_SMTP_PASSWORD
-          value: ""
+         
         - name: GF_SMTP_FROM_ADDRESS
           value: "local_reg-grafana@isol.com"
         - name: GF_SMTP_FROM_NAME
