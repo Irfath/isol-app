@@ -4,10 +4,15 @@ metadata:
   name: isol-app
   namespace: isol
 spec:
-  replicas: 1
+  replicas: 3  # 0 downtime rs
   selector:
     matchLabels:
       app: isol-app
+  strategy:
+    type: RollingUpdate  ### Rolling restart config
+    rollingUpdate:
+      maxUnavailable: 0  
+      maxSurge: 1  
   template:
     metadata:
       labels:
