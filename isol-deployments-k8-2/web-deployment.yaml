@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: isol-app
-        image: asia-south2-docker.pkg.dev/isol-432616/isolapp/isolapp:100.1
+        image: asia-south2-docker.pkg.dev/isol-432616/isolapp/isolapp:100.3
         ports:
         - containerPort: 8080
         env:
