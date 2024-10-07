@@ -44,3 +44,8 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: db_host
+        resources:
+        requests:
+            cpu: "100m"  # Request 100 millicores (0.1 core)
+        limits:
+            cpu: "500m"  # Limit to 500 millicores (0.5 core)
